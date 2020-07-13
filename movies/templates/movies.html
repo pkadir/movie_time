@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <title>Movies</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+    <!-- Link Swiper's CSS -->
+    <link href="{% static 'css/swiper.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/swiper.css' %}" rel="stylesheet">
+
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+
+    <script src="{% static 'js/jquery-3.1.1.min.js'%}"></script>
+    <script src="{% static 'js/script.js'%}"></script>
+
+    <!-- Demo styles -->
+    <style>
+
+
+
+    </style>
+</head>
+<body>
+<div class="wrapper">
+
+    <header class="header">
+        <figure class="logo"><a href=""><img src="{% static "img/logo.jpg" %}" alt="Logo"></figure></a>
+        <nav class="menu">
+            <ul>
+                <li><a href="{% url "movies:movies" %}">Home</a></li>
+                {% if user.is_superuser %}
+                <li><a href="{% url "movies:add_movie" %}">Add Movie</a></li>
+                                    <li><a href="{% url 'movies:logout' %}">Logout</a></li>
+
+                {% endif %}
+                <li class="mobsearch">
+                    <form class="mobform">
+                        <input type="text" name="s" class="mobsearchfield" placeholder="Search...">
+                        <input type="submit" value="" class="mobsearchsubmit">
+                    </form>
+                </li>
+            </ul>
+        </nav>
+        <form class="search">
+            <input type="text" name="s" class="searchfield" placeholder="Search...">
+            <input type="submit" value="" class="searchsubmit">
+        </form>
+
+        <div class="toggle"><img src="{% static "img/menu.svg" %}"></div>
+    </header>
+    <!-- Swiper -->
+    <div class="homeslider">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="{% static "images/slider/poster1.jpg" %}">
+                    <div class="caption">
+                        <div class="captioninside">
+                            <h3>Fiftyshades Darker</h3>
+                            <p>Release date: February 10, 2017</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<main class="content">
+			<section class="centered">
+				<h3>All Movies</h3>
+				<div class="movies">
+                    {% if movies %}
+                        {% for movie in movies %}
+					<div class="mov">
+						<a href="{% url 'movies:details' movie.pk %}">
+							<img class="card-img-top" src="{{ movie.image.url }}" />
+{#                            <img src="{% static "images/7.jpg" %}">#}
+
+							<h2 class="movietitle">{{ movie.movie_name }}</h2>
+						</a>
+					</div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="mov">
+						<h4 style="color: white;">There in no movies to show...</h4>
+					</div>
+                    {% endif %}
+				</div>
+			</section>
+
+		</main>
+
+    <footer class="footer">
+        <div class="copyright"><p>Copyright &copy 2020 www.movietime.com</p></div>
+        <div class="footermenu">
+            <ul>
+                <li><a href="{% url "movies:movies" %}">Home</a></li>
+                <li><a href="{% url 'movies:logout' %}">Logout</a></li>
+            </ul>
+        </div>
+        <div class="tags">
+            <ul>
+                <li>Watch Free Movies Trailers</li>
+                <li>Movie Trailers</li>
+                <li>English Subtitled Movies Trailers</li>
+                <li>Latest Movies Trailers</li>
+                <li>New Movies Trailers</li>
+
+            </ul>
+        </div>
+
+    </footer>
+</div>
+</body>
+</html>

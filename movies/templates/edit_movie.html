@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <title>Add Movie</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- Link Swiper's CSS -->
+    <link href="{% static 'css/swiper.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/swiper.css' %}" rel="stylesheet">
+
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+
+    <script src="{% static 'js/jquery-3.1.1.min.js'%}"></script>
+    <script src="{% static 'js/script.js'%}"></script>
+    <style>
+        .tex{
+            width: 40em;
+        }
+
+    </style>
+
+
+
+</head>
+<body>
+<div class="wrapper">
+
+    <header class="header">
+        <figure class="logo"><a href="{% url "movies:movies" %}"><img src="{% static "img/logo.jpg" %}" alt="Logo"></figure></a>
+        <nav class="menu">
+            <ul>
+                <li><a href="{% url "movies:movies" %}">Home</a></li>
+                {% if user.is_superuser %}
+                    <li><a href="{% url "movies:add_movie" %}">Add Movie</a></li>
+                    <li><a href="{% url 'movies:logout' %}">Logout</a></li>
+
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main class="content">
+        <div class="container">
+            <h2 style="margin-top: 3em; color: white;">Add Movie</h2>
+            <form method="post" class="form-horizontal" style="margin-top: 3em; color: white;" action="{% url 'movies:add_movie' %}">{% csrf_token %}
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="movie">Movie Name:</label>
+                    <div class="col-sm-10 tex">
+                        <input type="text" class="form-control" value="{{ movie.movie_name }}" id="movie_name" placeholder="Enter movie name" name="movie_name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="dir">Director Name:</label>
+                    <div class="col-sm-10 tex">
+                        <input type="text" class="form-control" value="{{ movie.director_name }}" id="director" placeholder="Enter director name" name="director">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="dir">Popularity:</label>
+                    <div class="col-sm-10 tex">
+                        <input type="text" class="form-control" value="{{ movie.popularity }}" id="popularity" placeholder="Enter movie popularity" name="popularity">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="dir">IMDB Score:</label>
+                    <div class="col-sm-10 tex">
+                        <input type="text" class="form-control" value="{{ movie.imdb_score }}" id="imdb_score" placeholder="Enter IMDB Score" name="imdb_score">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="dir">Genre:</label>
+                    <div class="col-sm-10 tex">
+                        <input type="checkbox" id="genre" name="genre" class="form-check-input" value="Thriller">Thriller
+                        <input type="checkbox" style="margin-left: 10px;" id="genre" name="genre" class="form-check-input" value="Adventure">Adventure
+                        <input type="checkbox" style="margin-left: 10px;" id="genre" name="genre" class="form-check-input" value="Fantasy">Fantasy
+                        <input type="checkbox" style="margin-left: 10px;" id="genre" name="genre" class="form-check-input" value="Action">Action
+                        <input type="checkbox" style="margin-left: 10px;" id="genre" name="genre" class="form-check-input" value="Drama">Drama
+                        <input type="checkbox" style="margin-left: 10px;" id="genre" name="genre" class="form-check-input" value="War">War
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="dir">Add Movie Image:</label>
+                    <div class="col-sm-10 tex">
+                        <input type="file" value="{{ movie.image }}"  id="image" name="image">
+                    </div>
+                </div>
+                <input type="hidden" id="all_genre" name="all_genre">
+
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" id="submitMovie" class="btn btn-default">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="copyright"><p>Copyright &copy 2020 www.movietime.com</p></div>
+        <div class="footermenu">
+            <ul>
+                <li><a href="{% url "movies:movies" %}">Home</a></li>
+                    <li><a href="{% url 'movies:logout' %}">Logout</a></li>
+            </ul>
+        </div>
+        <div class="tags">
+            <ul>
+                <li>Watch Free Movies Trailers</li>
+                <li>Movie Trailers</li>
+                <li>English Subtitled Movies Trailers</li>
+                <li>Latest Movies Trailers</li>
+                <li>New Movies Trailers</li>
+
+            </ul>
+        </div>
+
+    </footer>
+
+    <!-- Swiper JS -->
+    <script src="{% static 'js/swiper.min.js'%}"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        //jquery for getting the selelcted checkbox values
+
+        $(document).on("click","#submitMovie",function(){
+            alert("in JS");
+
+            var favorite = [];//define array
+
+            $.each($("input[name='genre']:checked"), function(){
+                favorite.push($(this).val());
+            });
+            $("#all_genre").val(favorite);
+
+
+            alert("Genre Selected: " + favorite.join(", "));
+
+            if(favorite.length === 0){
+                alert("Select movie genre");
+                return false;
+            }
+
+        });
+    </script>
+
+
+</div>
+</body>
+</html>
