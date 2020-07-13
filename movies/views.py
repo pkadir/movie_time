@@ -59,14 +59,17 @@ class AddMovie(View):
                 movie_name = request.POST.get('movie_name')
                 director = request.POST.get('director')
                 popularity = request.POST.get('popularity')
+                trailer = "https://www.youtube.com/embed/"+request.POST.get('trailer_url').split('=')[1]
+                print(trailer)
                 imdb_score = request.POST.get('imdb_score')
                 all_genre = request.POST.get('all_genre')
                 print(all_genre.split(','))
-                image = request.POST.get('image')
-                print('Image url', image)
+                img = request.POST.get('image')
+                print("Image Path: ", img)
 
                 movie = Movies.objects.create(movie_name=movie_name, director_name=director, popularity=int(popularity),
-                                              imdb_score=int(imdb_score), image=image)
+                                              imdb_score=int(imdb_score), trailer_url=trailer)
+                movie.image = request.POST.get('image')
                 movie.save()
                 for genre in all_genre.split(','):
                     movie.genre.create(genre=genre)
@@ -76,7 +79,7 @@ class AddMovie(View):
                 messages.warning(request, "Some   Error Occurred... Please Try Again" + str(e))
                 return redirect('/movies')
         else:
-            messages.warning(request, "Some   Error Occurred... Please Try Again" + str(e))
+            messages.warning(request, "Some   Error Occurred... Please Try Again")
             return redirect('/movies')
 
 

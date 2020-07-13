@@ -16,15 +16,16 @@
 
     <script src="{% static 'js/jquery-3.1.1.min.js'%}"></script>
     <script src="{% static 'js/script.js'%}"></script>
-    <style>
+<style>
         .tex{
             width: 40em;
         }
-
+        .input_box{
+            color: white;
+            border: 1px solid #DDDDDD;
+            margin-right: 10px;
+        }
     </style>
-
-
-
 </head>
 <body>
 <div class="wrapper">
@@ -40,6 +41,10 @@
 
                 {% endif %}
             </ul>
+            <form method="get"  class="search" action="{% url "movies:search" %}">
+                <input type="text" name="query" style="color: white;" class="searchfield input_box" placeholder="Search...">
+                <input type="submit" value="" style="margin-top: 15px;" class="searchsubmit">
+            </form>
         </nav>
     </header>
     <main class="content">
@@ -104,7 +109,7 @@
         <div class="footermenu">
             <ul>
                 <li><a href="{% url "movies:movies" %}">Home</a></li>
-                    <li><a href="{% url 'movies:logout' %}">Logout</a></li>
+                <li><a href="{% url 'movies:logout' %}">Logout</a></li>
             </ul>
         </div>
         <div class="tags">

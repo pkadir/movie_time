@@ -19,6 +19,12 @@
 
     <!-- Demo styles -->
     <style>
+        .input_box{
+            color: white;
+            border: 1px solid #DDDDDD;
+            margin-right: 10px;
+        }
+
     </style>
 </head>
 <body>
@@ -37,8 +43,8 @@
             </ul>
         </nav>
         <form method="get"  class="search" action="{% url "movies:search" %}">
-            <input type="text" name="query" style="color: white;" class="searchfield" placeholder="Search...">
-            <input type="submit" value="" class="searchsubmit">
+            <input type="text" name="query" class="searchfield input_box" placeholder="Search...">
+            <input type="submit" value="" style="margin-top: 15px;" class="searchsubmit">
         </form>
     </header>
     <main class="content">
@@ -47,7 +53,7 @@
             <section class="trailer">
                 <h3>Trailer</h3>
                 <div class="trailer_frame">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/x73-573aWfs" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="{{ movie.trailer_url }}" frameborder="0" allowfullscreen></iframe>
                 </div>
             </section>
             {% if movie %}
@@ -55,7 +61,7 @@
                     <img class="card-img-top" src="{{ movie.image.url }}" alt="Movie image"  />
                     <ul>
                         <li>Movie name: {{ movie.movie_name }}</li>
-                        <li>Directedted by: {{ movie.director_name }}</li>
+                        <li>Directed by: {{ movie.director_name }}</li>
                         <li>99popularity: {{ movie.popularity }}</li>
                         <li>IMDB Score: {{ movie.imdb_score }}</li>
                         <li>Genre: {% for genre in movie.genre.all %} {{ genre.genre }} {% endfor %}</li>

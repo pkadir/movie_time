@@ -17,9 +17,11 @@
 
     <!-- Demo styles -->
     <style>
-
-
-
+        .input_box{
+            color: white;
+            border: 1px solid #DDDDDD;
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -38,8 +40,8 @@
             </ul>
         </nav>
         <form method="get"  class="search" action="{% url "movies:search" %}">
-            <input type="text" name="query" style="color: white;" class="searchfield" placeholder="Search...">
-            <input type="submit" value="" class="searchsubmit">
+            <input type="text" name="query" style="color: white;" class="searchfield input_box" placeholder="Search...">
+            <input type="submit" style="margin-top: 15px;" value="" class="searchsubmit">
         </form>
 
         <div class="toggle"><img src="{% static "img/menu.svg" %}"></div>
@@ -68,7 +70,7 @@
                     {% for movie in movies %}
                         <div class="mov">
                             <a href="{% url 'movies:details' movie.pk %}">
-                                <img class="card-img-top" src="{{ movie.image.url }}" />
+                                <img class="card-img-top" src="{{ movie.image.url }}" alt="Movie image"/>
                                 {#                            <img src="{% static "images/7.jpg" %}">#}
 
                                 <h2 class="movietitle">{{ movie.movie_name }}</h2>

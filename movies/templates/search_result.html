@@ -16,9 +16,12 @@
     <script src="{% static 'js/script.js'%}"></script>
 
     <!-- Demo styles -->
-    <style>
-
-
+   <style>
+        .input_box{
+            color: white;
+            border: 1px solid #DDDDDD;
+            margin-right: 10px;
+        }
 
     </style>
 </head>
@@ -38,8 +41,8 @@
             </ul>
         </nav>
         <form method="get"  class="search" action="{% url "movies:search" %}">
-            <input type="text" name="query" style="color: white;" class="searchfield" placeholder="Search...">
-            <input type="submit" value="" class="searchsubmit">
+            <input type="text" name="query" style="color: white;" class="searchfield input_box" placeholder="Search...">
+            <input type="submit" value="" style="margin-top: 15px;" class="searchsubmit">
         </form>
 
         <div class="toggle"><img src="{% static "img/menu.svg" %}"></div>
