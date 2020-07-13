@@ -10,7 +10,7 @@ class Movies(models.Model):
     genre = models.ManyToManyField(Genre)
     director_name = models.CharField(max_length=250, null=False, blank=False)
     popularity = models.IntegerField()
-    image = models.ImageField(upload_to='images/', null=False, blank=False)
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
     imdb_score = models.IntegerField()
 
     def __str__(self):

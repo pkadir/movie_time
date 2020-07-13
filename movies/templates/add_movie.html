@@ -119,16 +119,10 @@
         </div>
 
     </footer>
-
-    <!-- Swiper JS -->
-    <script src="{% static 'js/swiper.min.js'%}"></script>
-
-    <!-- Initialize Swiper -->
     <script>
         //jquery for getting the selelcted checkbox values
 
         $(document).on("click","#submitMovie",function(){
-            alert("in JS");
 
             var favorite = [];//define array
 
@@ -136,9 +130,7 @@
                 favorite.push($(this).val());
             });
             $("#all_genre").val(favorite);
-
-
-            alert("Genre Selected: " + favorite.join(", "));
+            {#alert("Genre Selected: " + favorite.join(", "));#}
 
             if(favorite.length === 0){
                 alert("Select movie genre");
@@ -147,8 +139,6 @@
 
         });
     </script>
-
-
 </div>
 </body>
 </html>

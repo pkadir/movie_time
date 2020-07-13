@@ -14,5 +14,5 @@ urlpatterns = [
     path('add_movie/', views.AddMovie.as_view(), name='add_movie'),
     path('delete/<pk>/', views.delete_movie, name='delete'),
     path('edit/<pk>/', views.edit_movie, name='edit'),
-
-]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('update/<pk>', views.update_movie, name='update'),
+    ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

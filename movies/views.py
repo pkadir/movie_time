@@ -66,6 +66,7 @@ class AddMovie(View):
 
                 movie = Movies.objects.create(movie_name=movie_name, director_name=director, popularity=int(popularity),
                                               imdb_score=int(imdb_score), image=image)
+                movie.save()
                 for genre in all_genre.split(','):
                     movie.genre.create(genre=genre)
                     movie.save()
@@ -94,26 +95,27 @@ def edit_movie(request, pk):
     return render(request, 'edit_movie.html', {'movie': movie})
 
 
-    # def post(self, request):
-    #     if request.method == "POST":
-    #         try:
-    #             movie_name = request.POST.get('movie_name')
-    #             director = request.POST.get('director')
-    #             popularity = request.POST.get('popularity')
-    #             imdb_score = request.POST.get('imdb_score')
-    #             all_genre = request.POST.get('all_genre')
-    #             print(all_genre.split(','))
-    #             image = request.POST.get('image')
-    #
-    #             movie = Movies.objects.create(movie_name=movie_name, director_name=director, popularity=int(popularity),
-    #                                           imdb_score=int(imdb_score), image=image)
-    #             for genre in all_genre.split(','):
-    #                 movie.genre.create(genre=genre)
-    #                 movie.save()
-    #             return redirect('/movies')
-    #         except Exception as e:
-    #             messages.warning(request, "Some   Error Occurred... Please Try Again" + str(e))
-    #             return redirect('/movies')
-    #     else:
-    #         messages.warning(request, "Some   Error Occurred... Please Try Again" + str(e))
-    #         return redirect('/movies')
+def update_movie(request, pk):
+    if request.method == "POST":
+        try:
+            movie_name = request.POST.get('movie_name')
+            director = request.POST.get('director')
+            popularity = request.POST.get('popularity')
+            imdb_score = request.POST.get('imdb_score')
+            all_genre = request.POST.get('all_genre')
+            print(all_genre.split(','))
+            image = request.POST.get('image')
+
+            movie = Movies.objects.filter(pk=pk).update(movie_name=movie_name, director_name=director,
+                                                        popularity=int(popularity),
+                                                        imdb_score=int(imdb_score), image=image)
+            for genre in all_genre.split(','):
+                movie.genre.create(genre=genre)
+                movie.save()
+            return redirect('/movies')
+        except Exception as e:
+            messages.warning(request, "Some   Error Occurred... Please Try Again" + str(e))
+            return redirect('/movies')
+    else:
+        messages.warning(request, "Some   Error Occurred... Please Try Again" + str(e))
+        return redirect('/movies')
