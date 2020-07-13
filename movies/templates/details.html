@@ -36,6 +36,10 @@
                 {% endif %}
             </ul>
         </nav>
+        <form method="get"  class="search" action="{% url "movies:search" %}">
+            <input type="text" name="query" style="color: white;" class="searchfield" placeholder="Search...">
+            <input type="submit" value="" class="searchsubmit">
+        </form>
     </header>
     <main class="content">
         <div class="single">

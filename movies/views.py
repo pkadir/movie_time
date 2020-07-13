@@ -2,6 +2,7 @@ from django.views import View
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import auth
+from django.db.models import Q
 from django.contrib import messages
 
 from .models import Movies
@@ -119,3 +120,16 @@ def update_movie(request, pk):
     else:
         messages.warning(request, "Some   Error Occurred... Please Try Again" + str(e))
         return redirect('/movies')
+
+
+def search_movies(request):
+    query = request.GET['query']
+
+    q1 = Q(movie_name__icontains=query)
+    q2 = Q(director_name__icontains=query)
+
+    movies = Movies.objects.filter(q1 | q2)
+
+    return render(request, 'search_result.html',
+            {'query': query,
+            'movies': movies})

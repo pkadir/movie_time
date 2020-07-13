@@ -15,4 +15,5 @@ urlpatterns = [
     path('delete/<pk>/', views.delete_movie, name='delete'),
     path('edit/<pk>/', views.edit_movie, name='edit'),
     path('update/<pk>', views.update_movie, name='update'),
+    path('search/', views.search_movies, name='search'),
     ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

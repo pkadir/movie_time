@@ -31,8 +31,8 @@
             <ul>
                 <li><a href="{% url "movies:movies" %}">Home</a></li>
                 {% if user.is_superuser %}
-                    <li><a href="{% url "movies:add_movie" %}">Add Movie</a></li>
-                    <li><a href="{% url 'movies:logout' %}">Logout</a></li>
+                <li><a href="{% url "movies:add_movie" %}">Add Movie</a></li>
+                                    <li><a href="{% url 'movies:logout' %}">Logout</a></li>
 
                 {% endif %}
             </ul>
@@ -44,46 +44,30 @@
 
         <div class="toggle"><img src="{% static "img/menu.svg" %}"></div>
     </header>
-    <!-- Swiper -->
-    <div class="homeslider">
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <img src="{% static "images/slider/poster1.jpg" %}">
-                    <div class="caption">
-                        <div class="captioninside">
-                            <h3>Fiftyshades Darker</h3>
-                            <p>Release date: February 10, 2017</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <main class="content">
-        <section class="centered">
-            <h3>All Movies</h3>
-            <div class="movies">
-                {% if movies %}
-                    {% for movie in movies %}
+<main class="content">
+			<section class="centered">
+                <h3 style="margin-bottom: 2em;">Your search result for <b>{{ query }}</b></h3>
+				<div class="movies">
+                    {% if movies %}
+                        {% for movie in movies %}
+					<div class="mov">
+						<a href="{% url 'movies:details' movie.pk %}">
+							<img class="card-img-top" src="{{ movie.image.url }}" />
+{#                            <img src="{% static "images/7.jpg" %}">#}
+
+							<h2 class="movietitle">{{ movie.movie_name }}</h2>
+						</a>
+					</div>
+                        {% endfor %}
+                    {% else %}
                         <div class="mov">
-                            <a href="{% url 'movies:details' movie.pk %}">
-                                <img class="card-img-top" src="{{ movie.image.url }}" />
-                                {#                            <img src="{% static "images/7.jpg" %}">#}
+						<h4 style="color: white;">There in no movies to show...</h4>
+					</div>
+                    {% endif %}
+				</div>
+			</section>
 
-                                <h2 class="movietitle">{{ movie.movie_name }}</h2>
-                            </a>
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <div class="mov">
-                        <h4 style="color: white;">There in no movies to show...</h4>
-                    </div>
-                {% endif %}
-            </div>
-        </section>
-
-    </main>
+		</main>
 
     <footer class="footer">
         <div class="copyright"><p>Copyright &copy 2020 www.movietime.com</p></div>

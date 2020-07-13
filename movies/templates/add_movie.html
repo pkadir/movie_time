@@ -41,6 +41,10 @@
                 {% endif %}
             </ul>
         </nav>
+        <form method="get"  class="search" action="{% url "movies:search" %}">
+            <input type="text" name="query" style="color: white;" class="searchfield" placeholder="Search...">
+            <input type="submit" value="" class="searchsubmit">
+        </form>
     </header>
     <main class="content">
         <div class="container">
@@ -104,7 +108,7 @@
         <div class="footermenu">
             <ul>
                 <li><a href="{% url "movies:movies" %}">Home</a></li>
-                    <li><a href="{% url 'movies:logout' %}">Logout</a></li>
+                <li><a href="{% url 'movies:logout' %}">Logout</a></li>
             </ul>
         </div>
         <div class="tags">
