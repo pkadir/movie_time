@@ -41,9 +41,8 @@
                 <li><a href="{% url "movies:movies" %}">Home</a></li>
                 {% if user.is_superuser %}
                     <li><a href="{% url "movies:add_movie" %}">Add Movie</a></li>
-                    <li><a href="{% url 'movies:logout' %}">Logout</a></li>
-
                 {% endif %}
+                <li><a href="{% url 'movies:logout' %}">Logout</a></li>
             </ul>
         </nav>
         <form method="get"  class="search" action="{% url "movies:search" %}">
